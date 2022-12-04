@@ -13,15 +13,25 @@ public class CRTSPlayer : NetworkBehaviour
         public GameObject BuildingPrefab;
     }
 
+    [SerializeField] private Transform CameraTransform;
+    [SerializeField] private LayerMask BuildingBlockLayer= new LayerMask();
     [SerializeField] private CBuildingEntry[] BuildingEntry;
+    [SerializeField] private float BuildingRangeLimit = 5f;
 
+
+    private Color TeamColor = new Color();
     private List<CUnit> MyUnits = new List<CUnit>();
     private List<CBuilding> MyBuildings= new List<CBuilding>();
+
 
     [SyncVar(hook =nameof(ClientHandleResourcesUpdated))]
     private int Resources = 500;
 
     public event Action<int> ClientOnResourcesUpdated;
+    public Color GetTeamColor()
+    {
+        return TeamColor;
+    }
 
     public int GetResources()
     {
@@ -31,7 +41,10 @@ public class CRTSPlayer : NetworkBehaviour
     {
         return MyUnits;
     }
-
+    public Transform GetCameraTransform()
+    {
+        return CameraTransform;
+    }
     public List<CBuilding> GetMyBuildings() 
     {
         return MyBuildings;
@@ -49,20 +62,53 @@ public class CRTSPlayer : NetworkBehaviour
         return null;
     }
 
-    [Server]
-    public void SetResources(int new_resources)
-    {
-        Resources = new_resources;
-    }
 
+    public bool CanPlaceBuilding(BoxCollider building_collider , Vector3 point)
+    {
+        if (Physics.CheckBox(point + building_collider.center, building_collider.size / 2, Quaternion.identity, BuildingBlockLayer))
+        {
+            return false;
+        }
+
+        foreach (CBuilding building in MyBuildings)
+        {
+            if ((point - building.transform.position).sqrMagnitude <= BuildingRangeLimit * BuildingRangeLimit)
+            {                
+                return true;
+            }
+        }
+
+        return false;
+    }
     #region Server
 
     [Command]
     public void CmdTryPlaceBuilding(int building_id , Vector3 position)
     {
-        GameObject building_instance = Instantiate(GetBuildingPrefab(building_id), position, Quaternion.identity);
+        CBuilding building_to_place = GetBuildingPrefab(building_id).GetComponent<CBuilding>();
+
+        if(building_to_place == null)
+        {
+            return;
+        }
+
+        if(Resources < building_to_place.GetPrice())
+        {
+            return;
+        }
+
+        BoxCollider building_collider = building_to_place.GetComponent<BoxCollider>();
+
+        if(!CanPlaceBuilding(building_collider , position))
+        {
+            return;
+        }
+        
+        GameObject building_instance = Instantiate(building_to_place.gameObject, position, Quaternion.identity);
 
         NetworkServer.Spawn(building_instance , connectionToClient);
+
+        SetResources(Resources - building_to_place.GetPrice());
     }
 
     public override void OnStartServer()
@@ -84,20 +130,31 @@ public class CRTSPlayer : NetworkBehaviour
         CBuilding.ServerOnBuildingSpawned -= ServerHandleBuildingSpawned;
         CBuilding.ServerOnBuildingDespawned -= ServerHandleBuildingDespawned;
     }
+    [Server]
+    public void SetTeamColor(Color new_team_color)
+    {
+        TeamColor = new_team_color;
+    }
+
+    [Server]
+    public void SetResources(int new_resources)
+    {
+        Resources = new_resources;
+    }
 
     [Server]
     private void ServerHandleBuildingDespawned(CBuilding building)
     {
         if (building.connectionToClient.connectionId != connectionToClient.connectionId) { return; }
 
-        MyBuildings.Add(building);
+        MyBuildings.Remove(building);
     }
     [Server]
     private void ServerHandleBuildingSpawned(CBuilding building)
     {
         if (building.connectionToClient.connectionId != connectionToClient.connectionId) { return; }
 
-        MyBuildings.Remove(building);
+        MyBuildings.Add(building);
     }
 
     private void ServerHandleUnitSpawned(CUnit unit)

@@ -6,16 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class CRTSNetworkManager : NetworkManager
 {
-    [SerializeField] private GameObject UnitSpawnerPrefab = null;
+    [SerializeField] private GameObject UnitBase = null;
     [SerializeField] private CGameOverHandler GameOverHandlerPrefab = null;
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
 
-        GameObject unit_spawner_instance = Instantiate(UnitSpawnerPrefab, conn.identity.transform.position, conn.identity.transform.rotation);
+        CRTSPlayer player = conn.identity.GetComponent<CRTSPlayer>();
 
-        NetworkServer.Spawn(unit_spawner_instance , conn);
+        player.SetTeamColor(new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f),1));        
+
+        GameObject unit_base = Instantiate(UnitBase, conn.identity.transform.position, conn.identity.transform.rotation);
+
+        NetworkServer.Spawn(unit_base, conn);
 
     }
 

@@ -7,6 +7,7 @@ using System;
 
 public class CUnit : NetworkBehaviour
 {
+    [SerializeField] private int ResourceCost = 10; 
     [SerializeField] private CHealth Health = null;
     [SerializeField] private CUnitMovement UnitMovement;
     [SerializeField] private CTargeter Targeter;
@@ -18,6 +19,11 @@ public class CUnit : NetworkBehaviour
 
     public static event Action<CUnit> AuthorityOnUnitSpawned;
     public static event Action<CUnit> AuthorityOnUnitDespawned;
+
+    public int GetResourceCost()
+    {
+        return ResourceCost;
+    }
 
     #region Server
     public override void OnStartServer()

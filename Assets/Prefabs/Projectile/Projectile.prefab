@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7796419716728366850}
   - component: {fileID: 205895167409202572}
   - component: {fileID: 7022484758478067116}
+  - component: {fileID: 6114259333650516523}
   m_Layer: 7
   m_Name: Projectile
   m_TagString: Untagged
@@ -102,6 +103,23 @@ CapsuleCollider:
   m_Height: 0.6531386
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.14531294}
+--- !u!114 &6114259333650516523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188676720156013943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f848140b7371842baf295c157c04c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  ColorRenderers:
+  - {fileID: 1999496155021230960}
 --- !u!1001 &9016626768777389349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -179,6 +197,12 @@ PrefabInstance:
 --- !u!4 &861471708711958559 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8563016014471765306, guid: a18796056c6d75c47a1cc07ea980f3a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 9016626768777389349}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1999496155021230960 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7394591106606687829, guid: a18796056c6d75c47a1cc07ea980f3a0,
     type: 3}
   m_PrefabInstance: {fileID: 9016626768777389349}
   m_PrefabAsset: {fileID: 0}
