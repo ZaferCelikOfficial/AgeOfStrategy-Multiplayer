@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4765424685395073264}
   m_Layer: 0
-  m_Name: UnitSpawnerPreview
+  m_Name: ResourceGeneratorPreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,7 +187,7 @@ PrefabInstance:
     - target: {fileID: 973436323442545794, guid: 86bdbe47c867db14db8244b5a46c42f7,
         type: 3}
       propertyPath: m_Name
-      value: UnitSpawner
+      value: ResourceGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 973436323442545797, guid: 86bdbe47c867db14db8244b5a46c42f7,
         type: 3}
@@ -198,7 +198,7 @@ PrefabInstance:
         type: 3}
       propertyPath: icon
       value: 
-      objectReference: {fileID: 21300000, guid: 620c9842daf9a2142a52794dfeb11df3,
+      objectReference: {fileID: 21300000, guid: 7a41ab0d5dc5f3048a8406722f1095bc,
         type: 3}
     - target: {fileID: 973436323442545797, guid: 86bdbe47c867db14db8244b5a46c42f7,
         type: 3}
@@ -208,7 +208,7 @@ PrefabInstance:
     - target: {fileID: 973436323442545797, guid: 86bdbe47c867db14db8244b5a46c42f7,
         type: 3}
       propertyPath: BuildingType
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 973436323442545797, guid: 86bdbe47c867db14db8244b5a46c42f7,
         type: 3}
@@ -223,7 +223,7 @@ PrefabInstance:
     - target: {fileID: 973436323442545800, guid: 86bdbe47c867db14db8244b5a46c42f7,
         type: 3}
       propertyPath: _assetId
-      value: 2418855605
+      value: 783618695
       objectReference: {fileID: 0}
     - target: {fileID: 973436323442545801, guid: 86bdbe47c867db14db8244b5a46c42f7,
         type: 3}
@@ -315,7 +315,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6358477284093308151}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7425586987509637609
+--- !u!114 &2322289535230037975
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -324,16 +324,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6178813666692233333}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6546559ffa142954694dcfc2bebc0ed8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d1097a251af5ee418b11da6352ba618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   Health: {fileID: 6178813666692233328}
-  UnitPrefab: {fileID: 755244889200239690, guid: 435876f8520123649867eaa7d03c89a7,
-    type: 3}
-  UnitSpawnPoint: {fileID: 4728165781629086025}
+  ResourcesPerInterval: 10
+  Interval: 2
 --- !u!4 &6178813666692233340 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 973436323442545803, guid: 86bdbe47c867db14db8244b5a46c42f7,

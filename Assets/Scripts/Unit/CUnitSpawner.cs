@@ -24,7 +24,7 @@ public class CUnitSpawner : NetworkBehaviour,IPointerClickHandler
     [Server]
     private void ServerHandleDie()
     {
-        //NetworkServer.Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
     }
 
     [Command]

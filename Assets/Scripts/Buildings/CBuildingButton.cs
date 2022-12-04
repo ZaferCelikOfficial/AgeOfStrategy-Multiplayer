@@ -60,7 +60,7 @@ public class CBuildingButton : MonoBehaviour,IPointerDownHandler,IPointerUpHandl
 
         if(Physics.Raycast(ray , out RaycastHit hit , Mathf.Infinity , FloorMask))
         {
-            // place building
+            Player.CmdTryPlaceBuilding( (int)Building.GetBuildingType() , hit.point);
         }
 
         Destroy(BuildingPreviewInstance);

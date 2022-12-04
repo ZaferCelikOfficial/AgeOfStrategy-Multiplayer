@@ -3,13 +3,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum EBuildings
+{
+    Base = 0 ,
+    BigSpawner = 1 ,
+    SmallSpawner = 2 ,
+    ResourceGenerator = 3,
+}
 public class CBuilding : NetworkBehaviour
 {
     [SerializeField] private GameObject BuildingPreview = null;
     [SerializeField] private Sprite icon = null;
     [SerializeField] private int price = 100;
-    [SerializeField] private int id = -1;
+    //[SerializeField] private int id = -1;
+    [SerializeField] EBuildings BuildingType;
+
 
     public static event Action<CBuilding> ServerOnBuildingSpawned;
     public static event Action<CBuilding> ServerOnBuildingDespawned;
@@ -26,14 +34,19 @@ public class CBuilding : NetworkBehaviour
         return icon;
     }
 
-    public int GetId()
-    {
-        return id;
-    }
+    //public int GetId()
+    //{
+    //    return id;
+    //}
 
     public int GetPrice()
     { 
         return price; 
+    }
+
+    public EBuildings GetBuildingType()
+    {
+        return BuildingType;
     }
 
 

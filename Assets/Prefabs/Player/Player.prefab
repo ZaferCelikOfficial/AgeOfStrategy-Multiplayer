@@ -65,4 +65,15 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  MyUnits: []
+  BuildingEntry:
+  - BuildingType: 0
+    BuildingPrefab: {fileID: 6178813666692233333, guid: 2ea8294cc3be6374ab4f8a3aee3cfc06,
+      type: 3}
+  - BuildingType: 1
+    BuildingPrefab: {fileID: 6178813666692233333, guid: e7dabbc898b88db4a815322b6df870d1,
+      type: 3}
+  - BuildingType: 3
+    BuildingPrefab: {fileID: 6178813666692233333, guid: 9e31949797c1fef45a3317aa8b2267e4,
+      type: 3}
+  - BuildingType: 2
+    BuildingPrefab: {fileID: 0}

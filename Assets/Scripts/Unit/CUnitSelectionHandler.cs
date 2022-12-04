@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class CUnitSelectionHandler : MonoBehaviour
 {
@@ -57,7 +58,7 @@ public class CUnitSelectionHandler : MonoBehaviour
     {
         TryGetRTSPlayer?.Invoke();
 
-        if( Mouse.current.leftButton.wasPressedThisFrame )
+        if( Mouse.current.leftButton.wasPressedThisFrame)
         {
             StartSelectionArea();
         }
