@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinimapRect: {fileID: 3932715454902157714}
-  MapScale: 20
+  MapScale: 50
   Offset: -6
 --- !u!1 &3932715455360817745
 GameObject:

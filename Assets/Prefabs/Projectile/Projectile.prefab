@@ -70,7 +70,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   ProjectileRb: {fileID: 205895167409202572}
-  DamageToDeal: 1
+  DamageToDeal: 20
   DestroyAfterSeconds: 5
   LaunchForce: 10
 --- !u!54 &205895167409202572

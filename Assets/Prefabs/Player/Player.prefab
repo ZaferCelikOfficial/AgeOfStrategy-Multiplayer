@@ -82,7 +82,8 @@ MonoBehaviour:
     BuildingPrefab: {fileID: 6178813666692233333, guid: 9e31949797c1fef45a3317aa8b2267e4,
       type: 3}
   - BuildingType: 2
-    BuildingPrefab: {fileID: 0}
+    BuildingPrefab: {fileID: 6178813666692233333, guid: bee24e296e862554a9be2c493d659945,
+      type: 3}
   BuildingRangeLimit: 5
 --- !u!114 &3443043368689381425
 MonoBehaviour:
