@@ -19,7 +19,7 @@ public class CMinimap : MonoBehaviour,IPointerDownHandler,IDragHandler
             return;
         }
 
-        if(NetworkClient.connection.identity == null)
+        if(NetworkClient.connection?.identity == null)
         {
             return;
         }

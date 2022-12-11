@@ -16,9 +16,7 @@ public class CUnitSelectionHandler : MonoBehaviour
     private CRTSPlayer Player;
     private Camera MainCamera;
 
-    private List<CUnit> SelectedUnits = new List<CUnit>();
-
-    private event Action TryGetRTSPlayer;
+    private List<CUnit> SelectedUnits = new List<CUnit>();    
 
     private void Start()
     {
