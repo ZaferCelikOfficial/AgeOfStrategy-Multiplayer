@@ -25,7 +25,7 @@ using UnityEngine;
 
 namespace Mirror
 {
-    [AddComponentMenu("Network/Network Transform")]
+    [AddComponentMenu("Network/Network Transform (Unreliable)")]
     public class NetworkTransform : NetworkBehaviour
     {
         // target transform to sync. can be on a child.

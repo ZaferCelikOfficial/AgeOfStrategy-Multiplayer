@@ -23,11 +23,12 @@ public class CUnitSelectionHandler : MonoBehaviour
     private void Start()
     {
         MainCamera = Camera.main;
-        TryGetRTSPlayer += GetRTSPlayer;
 
         CUnit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
 
         CGameOverHandler.ClientOnGameOver += ClientHandleGameOver;
+
+        Player = NetworkClient.connection.identity.GetComponent<CRTSPlayer>();
     }
 
     private void ClientHandleGameOver(string obj)
@@ -41,22 +42,8 @@ public class CUnitSelectionHandler : MonoBehaviour
 
         CGameOverHandler.ClientOnGameOver -= ClientHandleGameOver;
     }
-
-
-
-    void GetRTSPlayer()
-    {
-        Player = NetworkClient.connection.identity.GetComponent<CRTSPlayer>();
-
-        if(Player != null)
-        {
-            TryGetRTSPlayer -= GetRTSPlayer; 
-        }
-        
-    }
     private void Update()
     {
-        TryGetRTSPlayer?.Invoke();
 
         if( Mouse.current.leftButton.wasPressedThisFrame)
         {

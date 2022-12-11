@@ -30,15 +30,12 @@ public class CBuildingButton : MonoBehaviour,IPointerDownHandler,IPointerUpHandl
         PriceText.text = Building.GetPrice().ToString();
 
         BuildingCollider = Building.GetComponent<BoxCollider>();
+
+        Player = NetworkClient.connection.identity.GetComponent<CRTSPlayer>();
     }
 
     private void Update()
-    {
-        if(Player == null)
-        {
-            Player = NetworkClient.connection.identity.GetComponent<CRTSPlayer>();
-        }
-
+    {        
         if (BuildingPreviewInstance == null) return;
 
         UpdateBuildingPreview();

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7043239250216440618}
   - component: {fileID: 7043239250216440613}
-  - component: {fileID: 7043239250216440612}
   - component: {fileID: 7043239250216440615}
   m_Layer: 0
   m_Name: NetworkManager
@@ -52,7 +51,7 @@ MonoBehaviour:
   autoConnectClientBuild: 0
   sendRate: 30
   offlineScene: Assets/Scenes/Scene_Menu.unity
-  onlineScene: Assets/Scenes/Scene_Map_01.unity
+  onlineScene: 
   transport: {fileID: 7043239250216440615}
   networkAddress: localhost
   maxConnections: 100
@@ -62,29 +61,22 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 1
   spawnPrefabs:
-  - {fileID: 755244889200239690, guid: 435876f8520123649867eaa7d03c89a7, type: 3}
-  - {fileID: 4332147897087535087, guid: 3a5aa0dfbd714cc4e902392f9e9a4b34, type: 3}
-  - {fileID: 188676720156013943, guid: 46ec3ac29d104be4c95799f4db56a755, type: 3}
+  - {fileID: 6178813666692233333, guid: 2ea8294cc3be6374ab4f8a3aee3cfc06, type: 3}
   - {fileID: 9131572548925155483, guid: 8aea6360c6d569946a7b17e208b878fa, type: 3}
+  - {fileID: 973436323442545794, guid: 86bdbe47c867db14db8244b5a46c42f7, type: 3}
+  - {fileID: 6178813666692233333, guid: e7dabbc898b88db4a815322b6df870d1, type: 3}
+  - {fileID: 4592368318826253443, guid: 422e9401e0bc7264f955c391db1e04f1, type: 3}
+  - {fileID: 188676720156013943, guid: ddba29e3233641d4d9b6f18dfada6910, type: 3}
+  - {fileID: 6178813666692233333, guid: bee24e296e862554a9be2c493d659945, type: 3}
+  - {fileID: 4592368318826253443, guid: 3285c979d521d09468071a73c5c43c44, type: 3}
+  - {fileID: 188676720156013943, guid: 46ec3ac29d104be4c95799f4db56a755, type: 3}
+  - {fileID: 6178813666692233333, guid: 9e31949797c1fef45a3317aa8b2267e4, type: 3}
   timeInterpolationGui: 0
-  UnitSpawnerPrefab: {fileID: 4332147897087535087, guid: 3a5aa0dfbd714cc4e902392f9e9a4b34,
+  UnitBase: {fileID: 6178813666692233333, guid: 2ea8294cc3be6374ab4f8a3aee3cfc06,
     type: 3}
   GameOverHandlerPrefab: {fileID: 2860328784586485286, guid: 8aea6360c6d569946a7b17e208b878fa,
     type: 3}
---- !u!114 &7043239250216440612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7043239250216440614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsetX: 0
-  offsetY: 0
+  Players: []
 --- !u!114 &7043239250216440615
 MonoBehaviour:
   m_ObjectHideFlags: 0

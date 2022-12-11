@@ -10,20 +10,13 @@ public class CResourcesDisplay : MonoBehaviour
     [SerializeField] private TMP_Text ResourcesText = null;
 
     private CRTSPlayer Player;
-
-    private void Update()
+    private void Start()
     {
-        if(Player == null)
-        {
-            Player = NetworkClient.connection.identity.GetComponent<CRTSPlayer>();
+        Player = NetworkClient.connection.identity.GetComponent<CRTSPlayer>();
 
-            if(Player != null)
-            {
-                ClientHandleResourcesUpdated(Player.GetResources());
+        ClientHandleResourcesUpdated(Player.GetResources());
 
-                Player.ClientOnResourcesUpdated += ClientHandleResourcesUpdated;
-            }
-        }
+        Player.ClientOnResourcesUpdated += ClientHandleResourcesUpdated;
     }
 
     private void OnDestroy()

@@ -18,7 +18,6 @@ public class CRTSPlayer : NetworkBehaviour
     [SerializeField] private CBuildingEntry[] BuildingEntry;
     [SerializeField] private float BuildingRangeLimit = 5f;
 
-
     private Color TeamColor = new Color();
     private List<CUnit> MyUnits = new List<CUnit>();
     private List<CBuilding> MyBuildings= new List<CBuilding>();
@@ -26,8 +25,26 @@ public class CRTSPlayer : NetworkBehaviour
 
     [SyncVar(hook =nameof(ClientHandleResourcesUpdated))]
     private int Resources = 500;
+    [SyncVar(hook =nameof(AuthorityHandlePartyOwnerStateUpdated))]
+    private bool IsPartyOwner = false;
+    [SyncVar (hook =nameof(ClientHandleDisplayNameUpdated))]
+    private string DisplayName;
+
+    public string GetDisplayName()
+    {
+        return DisplayName;
+    }
+
 
     public event Action<int> ClientOnResourcesUpdated;
+
+    public static event Action<bool> AuthorityOnPartyOwnerStateUpdated;
+    public static event Action ClientOnInfoUpdated;
+
+    public bool GetIsPartyOwner()
+    {
+        return IsPartyOwner;
+    }
     public Color GetTeamColor()
     {
         return TeamColor;
@@ -81,7 +98,16 @@ public class CRTSPlayer : NetworkBehaviour
         return false;
     }
     #region Server
+    [Command]
+    public void CmdStartGame()
+    {
+        if(!IsPartyOwner)
+        { 
+            return; 
+        }
 
+        ((CRTSNetworkManager)NetworkManager.singleton).StartGame();
+    }
     [Command]
     public void CmdTryPlaceBuilding(int building_id , Vector3 position)
     {
@@ -118,6 +144,8 @@ public class CRTSPlayer : NetworkBehaviour
 
         CBuilding.ServerOnBuildingSpawned += ServerHandleBuildingSpawned;
         CBuilding.ServerOnBuildingDespawned += ServerHandleBuildingDespawned;
+
+        DontDestroyOnLoad(gameObject);
     }
 
 
@@ -130,6 +158,18 @@ public class CRTSPlayer : NetworkBehaviour
         CBuilding.ServerOnBuildingSpawned -= ServerHandleBuildingSpawned;
         CBuilding.ServerOnBuildingDespawned -= ServerHandleBuildingDespawned;
     }
+    [Server]
+    public void SetDisplayName(string display_name)
+    {
+        this.DisplayName = display_name;
+    }
+
+    [Server]
+    public void SetPartyOwner(bool state)
+    {
+        IsPartyOwner = state;
+    }
+
     [Server]
     public void SetTeamColor(Color new_team_color)
     {
@@ -185,11 +225,24 @@ public class CRTSPlayer : NetworkBehaviour
         CBuilding.AuthorityOnUnitDespawned += AuthorityHandleBuildingDespawned;
     }
 
+    public override void OnStartClient()
+    {
+        if (NetworkServer.active) return;
 
+        DontDestroyOnLoad(gameObject);
+
+        ((CRTSNetworkManager)NetworkManager.singleton).Players.Add(this);
+    }
 
     public override void OnStopClient()
     {
-        if (!isClientOnly || !isOwned) return;
+        ClientOnInfoUpdated?.Invoke();
+
+        if (!isClientOnly) return;
+
+        ((CRTSNetworkManager)NetworkManager.singleton).Players.Remove(this);
+
+        if (!isOwned) return;
 
         CUnit.AuthorityOnUnitSpawned -= AuthorityHandleUnitSpawned;
         CUnit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
@@ -202,6 +255,16 @@ public class CRTSPlayer : NetworkBehaviour
     {        
         MyUnits.Add(unit);
     }
+    private void AuthorityHandlePartyOwnerStateUpdated(bool old_state , bool new_state)
+    {
+        if(!isOwned)
+        {
+            return;
+        }
+
+        AuthorityOnPartyOwnerStateUpdated?.Invoke(new_state);
+    }
+
     private void AuthorityHandleUnitDespawned(CUnit unit)
     {        
         MyUnits.Remove(unit);
@@ -221,5 +284,12 @@ public class CRTSPlayer : NetworkBehaviour
     {
         ClientOnResourcesUpdated?.Invoke(new_resources);
     }
+
+    private void ClientHandleDisplayNameUpdated(string old_display_name, string new_display_name)
+    {
+        ClientOnInfoUpdated?.Invoke();
+    }
+
+
     #endregion
 }
